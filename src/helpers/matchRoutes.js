@@ -1,6 +1,5 @@
 "use strict";
 
-var React = require('react');
 var URLPattern = require('url-pattern');
 var invariant = require('../utils/invariant');
 var warning = require('../utils/warning');
@@ -30,43 +29,40 @@ function matchRoutes(routes, path, routerURLPatternOptions) {
     queryObj = qs.parse(queryString);
   }
 
-  React.Children.forEach(routes, (current) =>{
+  routes.forEach(current => {
 
-  // for (var i = 0, len = routes.length; i < len; i++) {
-  //   var current = routes[i];
     // Simply skip null or undefined to allow ternaries in route definitions
-    // if (!current) continue;
     if (!current) return;
+    const props = current.props || current;
 
-    invariant(
-      current.props.handler !== undefined && current.props.path !== undefined,
+    invariant((props.handler !== undefined || props.redirect !== undefined) && props.path !== undefined,
       "Router should contain either Route or NotFound components as routes");
 
-    if (current.props.path) {
+    if (props.path) {
       // Allow passing compiler options to url-pattern, see
       // https://github.com/snd/url-pattern#customize-the-pattern-syntax
       // Note that this blows up if you provide an empty object on a regex path
       urlPatternOptions = null;
-      if (Array.isArray(current.props.urlPatternOptions) || current.props.path instanceof RegExp) {
+      if (Array.isArray(props.urlPatternOptions) || props.path instanceof RegExp) {
         // If an array is passed, it takes precedence - assumed these are regexp keys
-        urlPatternOptions = current.props.urlPatternOptions;
-      } else if (routerURLPatternOptions || current.props.urlPatternOptions) {
-        urlPatternOptions = assign({}, routerURLPatternOptions, current.props.urlPatternOptions);
+        urlPatternOptions = props.urlPatternOptions;
+      } else if (routerURLPatternOptions || props.urlPatternOptions) {
+        urlPatternOptions = assign({}, routerURLPatternOptions, props.urlPatternOptions);
       }
 
       // matchKeys is deprecated
       // FIXME remove this block in next minor version
-      if (current.props.matchKeys) {
-        urlPatternOptions = current.props.matchKeys;
+      if (props.matchKeys) {
+        urlPatternOptions = props.matchKeys;
         warning(false,
           '`matchKeys` is deprecated; please use the prop `urlPatternOptions` instead. See the CHANGELOG for details.');
       }
 
-      var cacheKey = current.props.path + (urlPatternOptions ? JSON.stringify(urlPatternOptions) : '');
+      var cacheKey = props.path + (urlPatternOptions ? JSON.stringify(urlPatternOptions) : '');
 
       var pattern = patternCache[cacheKey];
       if (!pattern) {
-        pattern = patternCache[cacheKey] = new URLPattern(current.props.path, urlPatternOptions);
+        pattern = patternCache[cacheKey] = new URLPattern(props.path, urlPatternOptions);
       }
 
       if (!page) {
@@ -76,7 +72,7 @@ function matchRoutes(routes, path, routerURLPatternOptions) {
         }
 
         // Backcompat fix in 0.27: regexes in url-pattern no longer return {_: matches}
-        if (match && current.props.path instanceof RegExp && !match._ && Array.isArray(match)) {
+        if (match && props.path instanceof RegExp && !match._ && Array.isArray(match)) {
           match = {_: match};
         }
 
@@ -86,7 +82,7 @@ function matchRoutes(routes, path, routerURLPatternOptions) {
         }
       }
     }
-    if (!notFound && current.props.path === null) {
+    if (!notFound && props.path === null) {
       notFound = current;
     }
   });
@@ -97,6 +93,21 @@ function matchRoutes(routes, path, routerURLPatternOptions) {
     match,
     queryObj
   );
+}
+
+function matchRedirectableRoutes(routes, path, routerURLPatternOptions) {
+  const pages = [];
+  let match = matchRoutes(routes, path, routerURLPatternOptions);
+  while (match.route && match.route.props.redirect) {
+    const {props} = match.route;
+    console.log('redirect:', props.path, '->', props.redirect);
+    if (pages.indexOf(match.route) >= 0) {
+      throw new Error('Redirect cycle detected: ' + pages.map(page => `(${page.props.path}) -> ${page.props.redirect}`).join(''));
+    }
+    pages.push(match.route);
+    match = matchRoutes(routes, props.redirect, routerURLPatternOptions);
+  }
+  return match;
 }
 
 /**
@@ -140,7 +151,7 @@ Match.prototype.getProps = function () {
 Match.prototype.getHandler = function () {
   if (!this.route) return undefined;
 
-  return this.route.props.handler;
+  return this.route.props && this.route.props.handler;
 };
 
 module.exports = matchRoutes;

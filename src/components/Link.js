@@ -76,7 +76,7 @@ export default class Link extends Navigatable {
   render() {
     var props = assign({}, this.props, {
       onClick: this.onClick,
-      href: '#'//this._createHref()
+      href: this._createHref()
     });
     return (
       <a {...props}>{this.props.children}</a>

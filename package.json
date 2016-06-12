@@ -71,7 +71,8 @@
     "js-stylesheet": "^0.0.1",
     "object-assign": "^4.1.0",
     "qs": "^6.2.0",
-    "url-pattern": "^1.0.1"
+    "url-pattern": "^1.0.1",
+    "urllite": "^0.5.0"
   },
   "jest": {
     "automock": false,

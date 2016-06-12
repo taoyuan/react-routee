@@ -1,13 +1,14 @@
 "use strict";
 
 import React, {Component, PropTypes} from 'react';
-const assign = Object.assign || require('object-assign');
 import cx from 'classnames';
 import jss from 'js-stylesheet';
 
 import Environment from '../environment';
-var invariant = require('../utils/invariant');
-var matchRoutes = require('../helpers/matchRoutes');
+import invariant from '../utils/invariant';
+import matchRoutes from '../helpers/matchRoutes';
+
+const assign = Object.assign || require('object-assign');
 
 let useDefaultStyles = true;
 
@@ -26,9 +27,9 @@ export default class Router extends Component {
     ])
   };
 
-  // static defaultProps = {
-  //   component: 'div'
-  // };
+  static defaultProps = {
+    component: 'div'
+  };
 
   static contextTypes = {
     router: PropTypes.any
@@ -51,6 +52,12 @@ export default class Router extends Component {
   pages = [];
 
   componentWillMount() {
+    if (useDefaultStyles) {
+      jss(require('../helpers/styles.js')); // eslint-disable-line global-require
+    }
+    this.pages = [];
+    this.getEnvironment().register(this);
+
     this.delegateSetRoutingState(this.getRouterState(this.props));
   }
 
@@ -59,13 +66,13 @@ export default class Router extends Component {
     this.delegateSetRoutingState(nextState);
   }
 
-  componentDidMount() {
-    if (useDefaultStyles) {
-      jss(require('../helpers/styles.js')); // eslint-disable-line global-require
-    }
-    this.pages = [];
-    this.getEnvironment().register(this);
-  }
+  // componentDidMount() {
+  //   if (useDefaultStyles) {
+  //     jss(require('../helpers/styles.js')); // eslint-disable-line global-require
+  //   }
+  //   this.pages = [];
+  //   this.getEnvironment().register(this);
+  // }
 
   componentWillUnmount() {
     this.getEnvironment().unregister(this);
@@ -127,6 +134,9 @@ export default class Router extends Component {
 
   getEnvironment() {
     if (this.props.environment) {
+      if (typeof this.props.environment === 'function') {
+        return this.props.environment.call(this);
+      }
       return this.props.environment;
     }
     if (this.props.hash) {
@@ -316,10 +326,10 @@ export default class Router extends Component {
     const {handler, matchProps, match} = this.state;
     const {route} = match;
 
-    let page = stateful && this.pages.find(page => page.props.path === route.props.path);
+    let page = stateful && this.pages.find(page => page.props.__path__ === route.props.path);
 
     if (!page) {
-      props = assign({ref: route.ref, path: route.props.path}, this.getChildProps(), props, matchProps);
+      props = assign({ref: route.ref, __path__: route.props.path}, this.getChildProps(), props, matchProps);
       if (React.isValidElement(handler)) {
         // Be sure to keep the props that were already set on the handler.
         // Otherwise, a handler like <div className="foo">bar</div> would have its className lost.
@@ -336,32 +346,44 @@ export default class Router extends Component {
   }
 
   render() {
-    const {className} = this.props;
-    const page = this.resolve(this.props);
+    const page = this.resolve(this.props.childProps);
+
+    if (!this.props.stateful && !this.props.component) {
+      return page;
+    }
+
     const pages = this.props.stateful ? this.pages : [page];
-    return (
-      <div className={cx(
+
+    // Pass all props except this component to the Router (containing div/body) and the children,
+    // which are swapped out by the route handler.
+    var props = assign({}, this.props, {
+      className: cx(
         'Router',
         'router',
-        className
-      )}>
-           {pages.map(current => {
-             const active = (current.props.path === page.props.path);
-             return (
-               <div key={current.props.path}
-                    className={cx(
-                      'route',
-                      className,
-                      {
-                        'active': active
-                      }
-                    )}>
-                    {React.cloneElement(current, {active: active})}
-               </div>
-             )
-           })}
-      </div>
-    )
+        this.props.className
+      )
+    });
+    delete props.component;
+    delete props.children;
+    delete props.childProps;
+
+    const children = pages.map(current => {
+      const active = (current.props.__path__ === page.props.__path__);
+      return (
+        <div key={current.props.__path__}
+             className={cx(
+               'route',
+               current.props.className,
+               {
+                 'active': active
+               }
+             )}>
+             {React.cloneElement(current, {active: active})}
+        </div>
+      )
+    });
+
+    return React.createElement(this.props.component, props, children);
   }
 }
 
@@ -372,3 +394,11 @@ function join(a, b) {
 function isString(o) {
   return Object.prototype.toString.call(o) === '[object String]';
 }
+
+class Pager extends Router {
+  static defaultProps = assign({}, Router.defaultProps, {
+    component: 'body'
+  });
+}
+
+export {Router, Pager};

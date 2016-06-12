@@ -5,12 +5,34 @@ var batchedUpdates = require('react/lib/ReactUpdates').batchedUpdates;
 /**
  * Base abstract class for a routing environment.
  *
+ * @constructor
  * @private
  */
+
 function Environment() {
   this.routers = [];
   this.path = this.getPath();
 }
+
+Environment.prototype.getPath = function () {
+  throw new Error('Abstract function for subclass');
+};
+
+Environment.prototype.replaceState = function(path, navigation) {
+  throw new Error('Abstract function for subclass');
+};
+
+Environment.prototype.pushState = function(path, navigation) {
+  throw new Error('Abstract function for subclass');
+};
+
+Environment.prototype.start = function() {
+  throw new Error('Abstract function for subclass');
+};
+
+Environment.prototype.stop = function() {
+  throw new Error('Abstract function for subclass');
+};
 
 /**
  * Notify routers about the change.

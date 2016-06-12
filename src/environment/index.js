@@ -16,7 +16,7 @@ var Environment = require('./Environment');
  */
 var Mixin = {
 
-  componentDidMount: function () {
+  componentWillMount: function () {
     this.getEnvironment().register(this);
   },
 
