@@ -22,8 +22,8 @@
  * will remain to ensure logic does not differ in production.
  */
 
-var __ENV__ = process.env.NODE_ENV; // env lookup is slow in Node
-var invariant = function (condition, format, a, b, c, d, e, f) {
+const __ENV__ = process.env.NODE_ENV; // env lookup is slow in Node
+export function invariant(condition, format, a, b, c, d, e, f) {
   if (__ENV__ !== 'production') {
     if (format === undefined) {
       throw new Error('invariant requires an error message argument');
@@ -45,6 +45,4 @@ var invariant = function (condition, format, a, b, c, d, e, f) {
     error.framesToPop = 1; // we don't care about invariant's own frame
     throw error;
   }
-};
-
-module.exports = invariant;
+}

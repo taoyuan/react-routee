@@ -1,6 +1,14 @@
 "use strict";
 
-module.exports = function flatten(list, depth) {
+export function join(a, b) {
+  return (a + b).replace(/\/\//g, '/');
+}
+
+export function isString(o) {
+  return Object.prototype.toString.call(o) === '[object String]';
+}
+
+export function flatten(list, depth) {
   depth = (typeof depth == 'number') ? depth : Infinity;
 
   if (!depth) {
@@ -22,4 +30,4 @@ module.exports = function flatten(list, depth) {
       }
     }, []);
   }
-};
+}

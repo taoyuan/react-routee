@@ -25,7 +25,7 @@
  * same logic and follow the same code paths.
  */
 
-var warning = function(){};
+var warning = function (){};
 
 if ("production" !== process.env.NODE_ENV) {
   warning = function(condition, format ) {var args=Array.prototype.slice.call(arguments,2);
@@ -44,4 +44,4 @@ if ("production" !== process.env.NODE_ENV) {
   };
 }
 
-module.exports = warning;
+export {warning};

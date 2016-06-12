@@ -5,8 +5,8 @@ import cx from 'classnames';
 import jss from 'js-stylesheet';
 
 import Environment from '../environment';
-import invariant from '../utils/invariant';
 import matchRoutes from '../helpers/matchRoutes';
+import {join, isString, invariant} from '../utils';
 
 const assign = Object.assign || require('object-assign');
 
@@ -385,14 +385,6 @@ export default class Router extends Component {
 
     return React.createElement(this.props.component, props, children);
   }
-}
-
-function join(a, b) {
-  return (a + b).replace(/\/\//g, '/');
-}
-
-function isString(o) {
-  return Object.prototype.toString.call(o) === '[object String]';
 }
 
 class Pager extends Router {

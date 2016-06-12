@@ -1,13 +1,11 @@
 "use strict";
 
-var URLPattern = require('url-pattern');
-var qs = require('qs');
-var invariant = require('../utils/invariant');
-var warning = require('../utils/warning');
-const flatten = require('../utils/flattern');
-var assign = Object.assign || require('object-assign');
+import URLPattern from 'url-pattern';
+import qs from 'qs';
+import {flatten, warning, invariant} from '../utils';
 
-var patternCache = {};
+const assign = Object.assign || require('object-assign');
+const patternCache = {};
 
 /**
  * Match routes against a path
@@ -156,4 +154,4 @@ Match.prototype.getHandler = function () {
   return this.route.props && this.route.props.handler;
 };
 
-module.exports = matchRoutes;
+export default matchRoutes;
