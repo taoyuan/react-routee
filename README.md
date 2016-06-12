@@ -1,6 +1,6 @@
 # react-routee [![Build Status](https://travis-ci.org/taoyuan/react-routee.svg?branch=master)](https://travis-ci.org/taoyuan/react-routee)
 
-A react router component that support stateful routes. forked from [React Router Component](https://github.com/strml/react-router-component)
+A react router component that support stateful routes. Forked from [React Router Component](https://github.com/strml/react-router-component)
 
 ## Installing
 
