@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, NotFound, Link} from '../../src';
+import {Router, Route, Link} from '../../src';
 
 const views = [1, 2, 3, 4, 5];
 

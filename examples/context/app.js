@@ -9,8 +9,7 @@ class Tabs extends Router {
   static defaultProps = {contextual: true};
 
   getRoutes() {
-    // return [{path: '*', handler: null}];
-    return [<Route path="*" handler={null}/>];
+    return <Route path="*" handler={null}/>;
   }
 
   render() {

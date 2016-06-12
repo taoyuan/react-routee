@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import qs from 'qs';
-import {Router, Route, IndexRoute, IndexRedirect, Link} from '../../src';
+import {Router, Route, IndexRedirect, Link} from '../../src';
 import {HashEnvironment} from '../../src/environment';
 
 class QueryStringKeyEnvironment extends HashEnvironment {
@@ -57,8 +57,7 @@ class Tabs extends Router {
   };
 
   getRoutes() {
-    // return [{path: '*', handler: null}];
-    return [<Route path="*" handler={null}/>];
+    return <Route path="*" handler={null}/>;
   }
 
   render() {

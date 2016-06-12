@@ -1,10 +1,11 @@
 "use strict";
 
 var URLPattern = require('url-pattern');
+var qs = require('qs');
 var invariant = require('../utils/invariant');
 var warning = require('../utils/warning');
+const flatten = require('../utils/flattern');
 var assign = Object.assign || require('object-assign');
-var qs = require('qs');
 
 var patternCache = {};
 
@@ -21,6 +22,7 @@ function matchRoutes(routes, path, routerURLPatternOptions) {
   if (!Array.isArray(routes)) {
     routes = [routes];
   }
+  routes = flatten(routes);
 
   const parts = path.split('?');
   var pathToMatch = parts[0];
