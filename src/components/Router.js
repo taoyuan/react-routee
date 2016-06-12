@@ -326,10 +326,10 @@ export default class Router extends Component {
     const {handler, matchProps, match} = this.state;
     const {route} = match;
 
-    let page = stateful && this.pages.find(page => page.props.__path__ === route.props.path);
+    let page = stateful && this.pages.find(page => page.props._path === route.props.path);
 
     if (!page) {
-      props = assign({ref: route.ref, __path__: route.props.path}, this.getChildProps(), props, matchProps);
+      props = assign({ref: route.ref, _path: route.props.path}, this.getChildProps(), props, matchProps);
       if (React.isValidElement(handler)) {
         // Be sure to keep the props that were already set on the handler.
         // Otherwise, a handler like <div className="foo">bar</div> would have its className lost.
@@ -368,9 +368,9 @@ export default class Router extends Component {
     delete props.childProps;
 
     const children = pages.map(current => {
-      const active = (current.props.__path__ === page.props.__path__);
+      const active = (current.props._path === page.props._path);
       return (
-        <div key={current.props.__path__}
+        <div key={current.props._path}
              className={cx(
                'route',
                current.props.className,
