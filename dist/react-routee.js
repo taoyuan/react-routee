@@ -252,6 +252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var assign = Object.assign || __webpack_require__(44);
 	
 	var useDefaultStyles = true;
+	var defaultStylesImported = void 0;
 	
 	var Router = function (_mix$with) {
 	  _inherits(Router, _mix$with);
@@ -266,8 +267,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      _get(Object.getPrototypeOf(Router.prototype), 'componentWillMount', this) && _get(Object.getPrototypeOf(Router.prototype), 'componentWillMount', this).call(this);
-	      if (useDefaultStyles) {
+	      if (useDefaultStyles && !defaultStylesImported) {
 	        (0, _jsStylesheet2.default)(__webpack_require__(46)); // eslint-disable-line global-require
+	        defaultStylesImported = true;
 	      }
 	    }
 	  }, {
@@ -289,7 +291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // Pass all props except this component to the Router (containing div/body) and the children,
 	      // which are swapped out by the route handler.
 	      var props = assign({}, this.props, {
-	        className: (0, _classnames2.default)('Router', 'router', this.props.className)
+	        className: (0, _classnames2.default)('RouteeRouter', 'routee-router', this.props.className)
 	      });
 	      delete props.component;
 	      delete props.children;
@@ -298,7 +300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var children = pages.map(function (current, index) {
 	        var active = current.props._path === page.props._path;
 	        return _react2.default.createElement('div', { key: index,
-	          className: (0, _classnames2.default)('route', current.props.className, {
+	          className: (0, _classnames2.default)('routee-route', current.props.className, {
 	            'active': active
 	          }) }, _react2.default.cloneElement(current, { active: active }));
 	      });
@@ -4927,7 +4929,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	
 	module.exports = {
-	  '.router .route:not(.active)': {
+	  '.routee-route:not(.active)': {
 	    display: 'none'
 	  }
 	};
