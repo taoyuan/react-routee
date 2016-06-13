@@ -75,7 +75,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 	
-	var _Route = __webpack_require__(44);
+	var _Route = __webpack_require__(47);
 	
 	Object.defineProperty(exports, 'Route', {
 	  enumerable: true,
@@ -108,7 +108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 	
-	var _Link = __webpack_require__(46);
+	var _Link = __webpack_require__(49);
 	
 	Object.defineProperty(exports, 'Link', {
 	  enumerable: true,
@@ -117,12 +117,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 	
-	var _CaptureClicks = __webpack_require__(47);
+	var _CaptureClicks = __webpack_require__(50);
 	
 	Object.defineProperty(exports, 'CaptureClicks', {
 	  enumerable: true,
 	  get: function get() {
 	    return _interopRequireDefault(_CaptureClicks).default;
+	  }
+	});
+	
+	var _environment = __webpack_require__(7);
+	
+	Object.defineProperty(exports, 'environment', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_environment).default;
+	  }
+	});
+	
+	var _NavigatableMixin = __webpack_require__(48);
+	
+	Object.defineProperty(exports, 'NavigatableMixin', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_NavigatableMixin).default;
+	  }
+	});
+	
+	var _RouterMixin = __webpack_require__(6);
+	
+	Object.defineProperty(exports, 'RouterMixin', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_RouterMixin).default;
+	  }
+	});
+	
+	var _RouterRenderingMixin = __webpack_require__(45);
+	
+	Object.defineProperty(exports, 'RouterRenderingMixin', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_RouterRenderingMixin).default;
 	  }
 	});
 	
@@ -153,27 +189,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	}();
 	
+	var _get = function get(object, property, receiver) {
+	  if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	    var parent = Object.getPrototypeOf(object);if (parent === null) {
+	      return undefined;
+	    } else {
+	      return get(parent, property, receiver);
+	    }
+	  } else if ("value" in desc) {
+	    return desc.value;
+	  } else {
+	    var getter = desc.get;if (getter === undefined) {
+	      return undefined;
+	    }return getter.call(receiver);
+	  }
+	};
+	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(3);
+	var _mixwith = __webpack_require__(3);
+	
+	var _classnames = __webpack_require__(4);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _jsStylesheet = __webpack_require__(4);
+	var _jsStylesheet = __webpack_require__(5);
 	
 	var _jsStylesheet2 = _interopRequireDefault(_jsStylesheet);
 	
-	var _environment = __webpack_require__(5);
+	var _RouterMixin = __webpack_require__(6);
 	
-	var _environment2 = _interopRequireDefault(_environment);
+	var _RouterMixin2 = _interopRequireDefault(_RouterMixin);
 	
-	var _matchRoutes = __webpack_require__(31);
+	var _RouterRenderingMixin = __webpack_require__(45);
 	
-	var _matchRoutes2 = _interopRequireDefault(_matchRoutes);
-	
-	var _utils = __webpack_require__(38);
+	var _RouterRenderingMixin2 = _interopRequireDefault(_RouterRenderingMixin);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -197,359 +249,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
-	var assign = Object.assign || __webpack_require__(42);
+	var assign = Object.assign || __webpack_require__(44);
 	
 	var useDefaultStyles = true;
 	
-	var Router = function (_Component) {
-	  _inherits(Router, _Component);
+	var Router = function (_mix$with) {
+	  _inherits(Router, _mix$with);
 	
 	  function Router() {
-	    var _Object$getPrototypeO;
-	
-	    var _temp, _this, _ret;
-	
 	    _classCallCheck(this, Router);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Router)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.pages = [], _temp), _possibleConstructorReturn(_this, _ret);
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Router).apply(this, arguments));
 	  }
 	
 	  _createClass(Router, [{
-	    key: 'getChildContext',
-	    value: function getChildContext() {
-	      return {
-	        router: this
-	      };
-	    }
-	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      _get(Object.getPrototypeOf(Router.prototype), 'componentWillMount', this) && _get(Object.getPrototypeOf(Router.prototype), 'componentWillMount', this).call(this);
 	      if (useDefaultStyles) {
-	        (0, _jsStylesheet2.default)(__webpack_require__(43)); // eslint-disable-line global-require
+	        (0, _jsStylesheet2.default)(__webpack_require__(46)); // eslint-disable-line global-require
 	      }
-	      this.pages = [];
-	      this.getEnvironment().register(this);
-	
-	      this.delegateSetRoutingState(this.getRouterState(this.props));
 	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      var nextState = this.getRouterState(nextProps);
-	      this.delegateSetRoutingState(nextState);
-	    }
-	
-	    // componentDidMount() {
-	    //   if (useDefaultStyles) {
-	    //     jss(require('../helpers/styles.js')); // eslint-disable-line global-require
-	    //   }
-	    //   this.pages = [];
-	    //   this.getEnvironment().register(this);
-	    // }
-	
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      this.getEnvironment().unregister(this);
-	      this.pages = null;
-	    }
-	  }, {
-	    key: 'getRoutes',
-	    value: function getRoutes(props) {
-	      return props.children;
-	    }
-	  }, {
-	    key: 'getRouterState',
-	    value: function getRouterState(props) {
-	      var path;
-	      var prefix;
-	
-	      var parent = props.contextual && this.getParentRouter();
-	
-	      if (parent) {
-	        // Build our new path based off the parent. A navigation may be in progress, in which case
-	        // we as well want the newest data so we use the pending match.
-	        var parentMatch = parent._pendingMatch || parent.getMatch();
-	
-	        (0, _utils.invariant)(props.path || (0, _utils.isString)(parentMatch.unmatchedPath) || parentMatch.matchedPath === parentMatch.path, "contextual router has nothing to match on: %s", parentMatch.unmatchedPath);
-	
-	        path = props.path || parentMatch.unmatchedPath || '/';
-	        prefix = parent.state.prefix + parentMatch.matchedPath;
-	      } else {
-	
-	        path = props.path || this.getEnvironment().getPath();
-	
-	        (0, _utils.invariant)((0, _utils.isString)(path), "router operate in environment which cannot provide path, " + "pass it a path prop; or probably you want to make it contextual");
-	
-	        prefix = '';
-	      }
-	
-	      if (path[0] !== '/') {
-	        path = '/' + path;
-	      }
-	
-	      var match = (0, _matchRoutes2.default)(this.getRoutes(props), path, this.getURLPatternOptions());
-	
-	      return {
-	        match: match,
-	        matchProps: match.getProps(),
-	        handler: match.getHandler(),
-	        prefix: prefix,
-	        navigation: {},
-	        path: path
-	      };
-	    }
-	  }, {
-	    key: 'getEnvironment',
-	    value: function getEnvironment() {
-	      if (this.props.environment) {
-	        if (typeof this.props.environment === 'function') {
-	          return this.props.environment.call(this);
-	        }
-	        return this.props.environment;
-	      }
-	      if (this.props.hash) {
-	        return _environment2.default.hashEnvironment;
-	      }
-	      if (this.props.contextual && this.context.router) {
-	        return this.context.router.getEnvironment();
-	      }
-	      return _environment2.default.defaultEnvironment;
-	    }
-	
-	    /**
-	     * Return parent router or undefined.
-	     */
-	
-	  }, {
-	    key: 'getParentRouter',
-	    value: function getParentRouter() {
-	      var current = this.context.router;
-	      var environment = this.getEnvironment();
-	
-	      if (current) {
-	        if (current.getEnvironment() === environment) {
-	          return current;
-	        }
-	      }
-	    }
-	
-	    /**
-	     * Return current match.
-	     */
-	
-	  }, {
-	    key: 'getMatch',
-	    value: function getMatch() {
-	      return this.state.match;
-	    }
-	  }, {
-	    key: 'getURLPatternOptions',
-	    value: function getURLPatternOptions() {
-	      var parent = this.getParentRouter();
-	      var parentOptions = parent && parent.getURLPatternOptions();
-	      // Check existence so we don't return an empty object if there are no options.
-	      if (parentOptions) {
-	        return assign({}, this.props.urlPatternOptions, parentOptions);
-	      }
-	      return this.props.urlPatternOptions;
-	    }
-	
-	    /**
-	     * Make href scoped for the current router.
-	     */
-	
-	  }, {
-	    key: 'makeHref',
-	    value: function makeHref(href) {
-	      return (0, _utils.join)(this.state.prefix, href);
-	    }
-	
-	    /**
-	     * Navigate to a path
-	     *
-	     * @param {String} path
-	     * @param {Function} navigation
-	     * @param {Function} cb
-	     */
-	
-	  }, {
-	    key: 'navigate',
-	    value: function navigate(path, navigation, cb) {
-	      path = (0, _utils.join)(this.state.prefix, path);
-	      this.getEnvironment().setPath(path, navigation, cb);
-	    }
-	
-	    /**
-	     * Set new path.
-	     *
-	     * This function is called by environment.
-	     *
-	     * @private
-	     *
-	     * @param {String} path
-	     * @param {Function} navigation
-	     * @param {Function} cb
-	     */
-	
-	  }, {
-	    key: 'setPath',
-	    value: function setPath(path, navigation, cb) {
-	      var _this2 = this;
-	
-	      var state = this.getRouterState(this.props);
-	      state.navigation = navigation;
-	
-	      if (this.props.onBeforeNavigation && this.props.onBeforeNavigation(state.path, navigation, state.match) === false) {
-	        return;
-	      }
-	
-	      if (navigation.onBeforeNavigation && navigation.onBeforeNavigation(state.path, navigation, state.match) === false) {
-	        return;
-	      }
-	
-	      this.delegateSetRoutingState(state, function () {
-	        if (_this2.props.onNavigation) {
-	          _this2.props.onNavigation(state.path, navigation, state.match);
-	        }
-	        cb();
-	      });
-	    }
-	
-	    /**
-	     * Return the current path
-	     */
-	
-	  }, {
-	    key: 'getPath',
-	    value: function getPath() {
-	      return this.state.match.path;
-	    }
-	
-	    /**
-	     * Try to delegate state update to a setRoutingState method (might be provided
-	     * by router itself) or use replaceState.
-	     */
-	
-	  }, {
-	    key: 'delegateSetRoutingState',
-	    value: function delegateSetRoutingState(state, cb) {
-	      // Store this here so it can be accessed by child contextual routers in onBeforeNavigation.
-	      this._pendingMatch = state.match;
-	
-	      if (this.setRoutingState) {
-	        this.setRoutingState(state, cb);
-	      } else {
-	        this.setState(state, cb);
-	      }
-	    }
-	  }, {
-	    key: 'getChildProps',
-	    value: function getChildProps() {
-	      var childProps = this.props.childProps || {};
-	      // Merge up from parents, with inner props taking priority.
-	      var parent = this.getParentRouter();
-	      if (parent) {
-	        childProps = assign({}, parent.getChildProps(), childProps);
-	      }
-	      return childProps;
-	    }
-	
-	    // renderRouteHandler(props) {
-	    //   if (!this.state.match.route) {
-	    //     throw new Error("react-routee: No route matched! Did you define a NotFound route?");
-	    //   }
-	    //   const handler = this.state.handler;
-	    //   const matchProps = this.state.matchProps;
-	    //   const {route} = this.state.match;
-	    //   const path = route.props.path;
-	    //   let page;
-	    //
-	    //   props = assign({ref: route.ref, active: true}, this.getChildProps(), props, matchProps);
-	    //
-	    //   if (this.props.stateful && this.pages[path]) {
-	    //     page = this.pages[path];
-	    //   }
-	    //
-	    //   if (page) {
-	    //     return this.pages[path] = React.cloneElement(page, assign(props, handler.props));
-	    //   }
-	    //
-	    //   props.key = props.key || uniqueId();
-	    //
-	    //   if (React.isValidElement(handler)) {
-	    //     // Be sure to keep the props that were already set on the handler.
-	    //     // Otherwise, a handler like <div className="foo">bar</div> would have its className lost.
-	    //     page = React.cloneElement(handler, assign(props, handler.props));
-	    //   } else {
-	    //     page = React.createElement(handler, props);
-	    //   }
-	    //   if (this.props.stateful) {
-	    //     this.pages[path] = page;
-	    //   }
-	    //   return page;
-	    //
-	    // }
-	
-	    // render() {
-	    //   const handler = this.renderRouteHandler(this.props.childProps);
-	    //
-	    //   if (!this.props.component) {
-	    //     return handler;
-	    //   }
-	    //
-	    //   // Pass all props except this component to the Router (containing div/body) and the children,
-	    //   // which are swapped out by the route handler.
-	    //   var props = assign({key: uniqueId()}, this.props);
-	    //   delete props.component;
-	    //   delete props.children;
-	    //   delete props.childProps;
-	    //   return React.createElement(this.props.component, props, handler);
-	    //
-	    //
-	    // }
-	
-	  }, {
-	    key: 'resolve',
-	    value: function resolve(props) {
-	      if (!this.state.match.route) {
-	        throw new Error("react-routee: No route matched! Did you define a NotFound route?");
-	      }
-	      var stateful = this.props.stateful;
-	      var _state = this.state;
-	      var handler = _state.handler;
-	      var matchProps = _state.matchProps;
-	      var match = _state.match;
-	      var route = match.route;
-	
-	      var page = stateful && this.pages.find(function (page) {
-	        return page.props._path === route.props.path;
-	      });
-	
-	      if (!page) {
-	        props = assign({ ref: route.ref, _path: route.props.path }, this.getChildProps(), props, matchProps);
-	        if (_react2.default.isValidElement(handler)) {
-	          // Be sure to keep the props that were already set on the handler.
-	          // Otherwise, a handler like <div className="foo">bar</div> would have its className lost.
-	          page = _react2.default.cloneElement(handler, assign(props, handler.props));
-	        } else {
-	          page = _react2.default.createElement(handler, props);
-	        }
-	        if (stateful) {
-	          this.pages.push(page);
-	        }
-	      }
-	
-	      return page;
+	      _get(Object.getPrototypeOf(Router.prototype), 'componentWillUnmount', this) && _get(Object.getPrototypeOf(Router.prototype), 'componentWillUnmount', this).call(this);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var page = this.resolve(this.props.childProps);
+	      var page = this.renderRouteHandler(this.props.childProps);
 	
 	      if (!this.props.stateful && !this.props.component) {
 	        return page;
@@ -566,9 +295,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      delete props.children;
 	      delete props.childProps;
 	
-	      var children = pages.map(function (current) {
+	      var children = pages.map(function (current, index) {
 	        var active = current.props._path === page.props._path;
-	        return _react2.default.createElement('div', { key: current.props._path,
+	        return _react2.default.createElement('div', { key: index,
 	          className: (0, _classnames2.default)('route', current.props.className, {
 	            'active': active
 	          }) }, _react2.default.cloneElement(current, { active: active }));
@@ -584,25 +313,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 	
 	  return Router;
-	}(_react.Component);
+	}((0, _mixwith.mix)(_react.Component).with(_RouterMixin2.default, _RouterRenderingMixin2.default));
 	
-	Router.displayName = 'Router';
-	Router.propTypes = {
-	  path: _react.PropTypes.string,
-	  contextual: _react.PropTypes.bool,
-	  stateful: _react.PropTypes.bool,
-	  onBeforeNavigation: _react.PropTypes.func,
-	  onNavigation: _react.PropTypes.func,
-	  urlPatternOptions: _react.PropTypes.oneOfType([_react.PropTypes.arrayOf(_react.PropTypes.string), _react.PropTypes.object])
-	};
 	Router.defaultProps = {
 	  component: 'div'
-	};
-	Router.contextTypes = {
-	  router: _react.PropTypes.any
-	};
-	Router.childContextTypes = {
-	  router: _react.PropTypes.any
 	};
 	exports.default = Router;
 	
@@ -632,6 +346,107 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
+	
+	(function (global, factory) {
+	  if (true) {
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	  } else if (typeof exports !== "undefined") {
+	    factory(exports);
+	  } else {
+	    var mod = {
+	      exports: {}
+	    };
+	    factory(mod.exports);
+	    global.mixwith = mod.exports;
+	  }
+	})(this, function (exports) {
+	  Object.defineProperty(exports, "__esModule", {
+	    value: true
+	  });
+	
+	  const _cachedApplicationRef = exports._cachedApplicationRef = Symbol('_cachedApplicationRef');
+	
+	  const _mixinRef = exports._mixinRef = Symbol('_mixinRef');
+	
+	  const _originalMixin = exports._originalMixin = Symbol('_originalMixin');
+	
+	  const wrap = exports.wrap = (mixin, wrapper) => {
+	    Object.setPrototypeOf(wrapper, mixin);
+	    if (!mixin[_originalMixin]) {
+	      mixin[_originalMixin] = mixin;
+	    }
+	    return wrapper;
+	  };
+	
+	  const Cached = exports.Cached = mixin => wrap(mixin, superclass => {
+	    // Get or create a symbol used to look up a previous application of mixin
+	    // to the class. This symbol is unique per mixin definition, so a class will have N
+	    // applicationRefs if it has had N mixins applied to it. A mixin will have
+	    // exactly one _cachedApplicationRef used to store its applications.
+	    let applicationRef = mixin[_cachedApplicationRef];
+	    if (!applicationRef) {
+	      applicationRef = mixin[_cachedApplicationRef] = Symbol(mixin.name);
+	    }
+	    // Look up an existing application of `mixin` to `c`, return it if found.
+	    if (superclass.hasOwnProperty(applicationRef)) {
+	      return superclass[applicationRef];
+	    }
+	    // Apply the mixin
+	    let application = mixin(superclass);
+	    // Cache the mixin application on the superclass
+	    superclass[applicationRef] = application;
+	    return application;
+	  });
+	
+	  const HasInstance = exports.HasInstance = mixin => {
+	    if (Symbol.hasInstance && !mixin.hasOwnProperty(Symbol.hasInstance)) {
+	      Object.defineProperty(mixin, Symbol.hasInstance, {
+	        value: function (o) {
+	          const originalMixin = this[_originalMixin];
+	          while (o != null) {
+	            if (o.hasOwnProperty(_mixinRef) && o[_mixinRef] === originalMixin) {
+	              return true;
+	            }
+	            o = Object.getPrototypeOf(o);
+	          }
+	          return false;
+	        }
+	      });
+	    }
+	    return mixin;
+	  };
+	
+	  const BareMixin = exports.BareMixin = mixin => wrap(mixin, superclass => {
+	    // Apply the mixin
+	    let application = mixin(superclass);
+	
+	    // Attach a reference from mixin applition to wrapped mixin for RTTI
+	    // mixin[@@hasInstance] should use this.
+	    application.prototype[_mixinRef] = mixin[_originalMixin];
+	    return application;
+	  });
+	
+	  const Mixin = exports.Mixin = mixin => Cached(HasInstance(BareMixin(mixin)));
+	
+	  const mix = exports.mix = superClass => new MixinBuilder(superClass);
+	
+	  class MixinBuilder {
+	    constructor(superclass) {
+	      this.superclass = superclass;
+	    }
+	
+	    with() {
+	      return Array.from(arguments).reduce((c, m) => m(c), this.superclass);
+	    }
+	
+	  }
+	});
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -685,7 +500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	!(function() {
@@ -729,7 +544,323 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 5 */
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _get = function get(object, property, receiver) {
+	  if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	    var parent = Object.getPrototypeOf(object);if (parent === null) {
+	      return undefined;
+	    } else {
+	      return get(parent, property, receiver);
+	    }
+	  } else if ("value" in desc) {
+	    return desc.value;
+	  } else {
+	    var getter = desc.get;if (getter === undefined) {
+	      return undefined;
+	    }return getter.call(receiver);
+	  }
+	};
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _mixwith = __webpack_require__(3);
+	
+	var _environment = __webpack_require__(7);
+	
+	var _environment2 = _interopRequireDefault(_environment);
+	
+	var _matchRoutes = __webpack_require__(33);
+	
+	var _matchRoutes2 = _interopRequireDefault(_matchRoutes);
+	
+	var _utils = __webpack_require__(40);
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var assign = Object.assign || __webpack_require__(44);
+	
+	exports.default = function (superclass) {
+	  var _class, _temp;
+	
+	  return _temp = _class = function (_mix$with) {
+	    _inherits(_class, _mix$with);
+	
+	    function _class() {
+	      _classCallCheck(this, _class);
+	
+	      return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
+	    }
+	
+	    _createClass(_class, [{
+	      key: 'getChildContext',
+	      value: function getChildContext() {
+	        return {
+	          router: this
+	        };
+	      }
+	    }, {
+	      key: 'componentWillMount',
+	      value: function componentWillMount() {
+	        _get(Object.getPrototypeOf(_class.prototype), 'componentWillMount', this) && _get(Object.getPrototypeOf(_class.prototype), 'componentWillMount', this).call(this);
+	        this.delegateSetRoutingState(this.getRouterState(this.props));
+	      }
+	    }, {
+	      key: 'componentWillReceiveProps',
+	      value: function componentWillReceiveProps(nextProps) {
+	        var nextState = this.getRouterState(nextProps);
+	        this.delegateSetRoutingState(nextState);
+	      }
+	    }, {
+	      key: 'getRoutes',
+	      value: function getRoutes(props) {
+	        return props.children;
+	      }
+	    }, {
+	      key: 'getRouterState',
+	      value: function getRouterState(props) {
+	        var path;
+	        var prefix;
+	
+	        var parent = props.contextual && this.getParentRouter();
+	
+	        if (parent) {
+	          // Build our new path based off the parent. A navigation may be in progress, in which case
+	          // we as well want the newest data so we use the pending match.
+	          var parentMatch = parent._pendingMatch || parent.getMatch();
+	
+	          (0, _utils.invariant)(props.path || (0, _utils.isString)(parentMatch.unmatchedPath) || parentMatch.matchedPath === parentMatch.path, "contextual router has nothing to match on: %s", parentMatch.unmatchedPath);
+	
+	          path = props.path || parentMatch.unmatchedPath || '/';
+	          prefix = parent.state.prefix + parentMatch.matchedPath;
+	        } else {
+	
+	          path = props.path || this.getEnvironment().getPath();
+	
+	          (0, _utils.invariant)((0, _utils.isString)(path), "router operate in environment which cannot provide path, " + "pass it a path prop; or probably you want to make it contextual");
+	
+	          prefix = '';
+	        }
+	
+	        if (path[0] !== '/') {
+	          path = '/' + path;
+	        }
+	
+	        var match = (0, _matchRoutes2.default)(this.getRoutes(props), path, this.getURLPatternOptions());
+	
+	        return {
+	          match: match,
+	          matchProps: match.getProps(),
+	          handler: match.getHandler(),
+	          prefix: prefix,
+	          navigation: {},
+	          path: path
+	        };
+	      }
+	    }, {
+	      key: 'getEnvironment',
+	      value: function getEnvironment() {
+	        if (this.props.environment) {
+	          if (typeof this.props.environment === 'function') {
+	            return this.props.environment.call(this);
+	          }
+	          return this.props.environment;
+	        }
+	        if (this.props.hash) {
+	          return _environment2.default.hashEnvironment;
+	        }
+	        if (this.props.contextual && this.context.router) {
+	          return this.context.router.getEnvironment();
+	        }
+	        return _environment2.default.defaultEnvironment;
+	      }
+	
+	      /**
+	       * Return parent router or undefined.
+	       */
+	
+	    }, {
+	      key: 'getParentRouter',
+	      value: function getParentRouter() {
+	        var current = this.context.router;
+	        var environment = this.getEnvironment();
+	
+	        if (current) {
+	          if (current.getEnvironment() === environment) {
+	            return current;
+	          }
+	        }
+	      }
+	
+	      /**
+	       * Return current match.
+	       */
+	
+	    }, {
+	      key: 'getMatch',
+	      value: function getMatch() {
+	        return this.state.match;
+	      }
+	    }, {
+	      key: 'getURLPatternOptions',
+	      value: function getURLPatternOptions() {
+	        var parent = this.getParentRouter();
+	        var parentOptions = parent && parent.getURLPatternOptions();
+	        // Check existence so we don't return an empty object if there are no options.
+	        if (parentOptions) {
+	          return assign({}, this.props.urlPatternOptions, parentOptions);
+	        }
+	        return this.props.urlPatternOptions;
+	      }
+	
+	      /**
+	       * Make href scoped for the current router.
+	       */
+	
+	    }, {
+	      key: 'makeHref',
+	      value: function makeHref(href) {
+	        return (0, _utils.join)(this.state.prefix, href);
+	      }
+	
+	      /**
+	       * Navigate to a path
+	       *
+	       * @param {String} path
+	       * @param {Function} navigation
+	       * @param {Function} cb
+	       */
+	
+	    }, {
+	      key: 'navigate',
+	      value: function navigate(path, navigation, cb) {
+	        path = (0, _utils.join)(this.state.prefix, path);
+	        this.getEnvironment().setPath(path, navigation, cb);
+	      }
+	
+	      /**
+	       * Set new path.
+	       *
+	       * This function is called by environment.
+	       *
+	       * @private
+	       *
+	       * @param {String} path
+	       * @param {Function} navigation
+	       * @param {Function} cb
+	       */
+	
+	    }, {
+	      key: 'setPath',
+	      value: function setPath(path, navigation, cb) {
+	        var _this2 = this;
+	
+	        var state = this.getRouterState(this.props);
+	        state.navigation = navigation;
+	
+	        if (this.props.onBeforeNavigation && this.props.onBeforeNavigation(state.path, navigation, state.match) === false) {
+	          return;
+	        }
+	
+	        if (navigation.onBeforeNavigation && navigation.onBeforeNavigation(state.path, navigation, state.match) === false) {
+	          return;
+	        }
+	
+	        this.delegateSetRoutingState(state, function () {
+	          if (_this2.props.onNavigation) {
+	            _this2.props.onNavigation(state.path, navigation, state.match);
+	          }
+	          cb();
+	        });
+	      }
+	
+	      /**
+	       * Return the current path
+	       */
+	
+	    }, {
+	      key: 'getPath',
+	      value: function getPath() {
+	        return this.state.match.path;
+	      }
+	
+	      /**
+	       * Try to delegate state update to a setRoutingState method (might be provided
+	       * by router itself) or use replaceState.
+	       */
+	
+	    }, {
+	      key: 'delegateSetRoutingState',
+	      value: function delegateSetRoutingState(state, cb) {
+	        // Store this here so it can be accessed by child contextual routers in onBeforeNavigation.
+	        this._pendingMatch = state.match;
+	
+	        if (this.setRoutingState) {
+	          this.setRoutingState(state, cb);
+	        } else {
+	          this.setState(state, cb);
+	        }
+	      }
+	    }]);
+	
+	    return _class;
+	  }((0, _mixwith.mix)(superclass).with(_environment2.default.Mixin)), _class.propTypes = {
+	    path: _react.PropTypes.string,
+	    contextual: _react.PropTypes.bool,
+	    stateful: _react.PropTypes.bool,
+	    onBeforeNavigation: _react.PropTypes.func,
+	    onNavigation: _react.PropTypes.func,
+	    urlPatternOptions: _react.PropTypes.oneOfType([_react.PropTypes.arrayOf(_react.PropTypes.string), _react.PropTypes.object])
+	  }, _class.contextTypes = {
+	    router: _react.PropTypes.any
+	  }, _class.childContextTypes = {
+	    router: _react.PropTypes.any
+	  }, _temp;
+	};
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -739,38 +870,101 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * It specifies how routers read its state from DOM and synchronise it back.
 	 */
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _get = function get(object, property, receiver) {
+	  if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	    var parent = Object.getPrototypeOf(object);if (parent === null) {
+	      return undefined;
+	    } else {
+	      return get(parent, property, receiver);
+	    }
+	  } else if ("value" in desc) {
+	    return desc.value;
+	  } else {
+	    var getter = desc.get;if (getter === undefined) {
+	      return undefined;
+	    }return getter.call(receiver);
+	  }
+	};
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
 	var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-	var DummyEnvironment = __webpack_require__(6);
-	var Environment = __webpack_require__(7);
+	var DummyEnvironment = __webpack_require__(8);
+	var Environment = __webpack_require__(9);
 	
 	/**
 	 * Mixin for routes to keep attached to an environment.
 	 *
 	 * This mixin assumes the environment is passed via props.
 	 */
-	var Mixin = {
+	var Mixin = function Mixin(superclass) {
+	  return function (_superclass) {
+	    _inherits(_class, _superclass);
 	
-	  componentWillMount: function componentWillMount() {
-	    this.getEnvironment().register(this);
-	  },
+	    function _class() {
+	      _classCallCheck(this, _class);
 	
-	  componentWillUnmount: function componentWillUnmount() {
-	    this.getEnvironment().unregister(this);
-	  }
+	      return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
+	    }
+	
+	    _createClass(_class, [{
+	      key: 'componentWillMount',
+	      value: function componentWillMount() {
+	        _get(Object.getPrototypeOf(_class.prototype), 'componentWillMount', this) && _get(Object.getPrototypeOf(_class.prototype), 'componentWillMount', this).call(this);
+	        this.getEnvironment().register(this);
+	      }
+	    }, {
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	        this.getEnvironment().unregister(this);
+	        _get(Object.getPrototypeOf(_class.prototype), 'componentWillUnmount', this) && _get(Object.getPrototypeOf(_class.prototype), 'componentWillUnmount', this).call(this);
+	      }
+	    }]);
+	
+	    return _class;
+	  }(superclass);
 	};
 	
-	var PathnameEnvironment;
-	var HashEnvironment;
+	var PathnameEnvironment = void 0;
+	var HashEnvironment = void 0;
 	
-	var pathnameEnvironment;
-	var hashEnvironment;
-	var defaultEnvironment;
-	var dummyEnvironment;
+	var pathnameEnvironment = void 0;
+	var hashEnvironment = void 0;
+	var defaultEnvironment = void 0;
+	var dummyEnvironment = void 0;
 	
 	if (canUseDOM) {
 	
-	  PathnameEnvironment = __webpack_require__(29);
-	  HashEnvironment = __webpack_require__(30);
+	  PathnameEnvironment = __webpack_require__(31);
+	  HashEnvironment = __webpack_require__(32);
 	
 	  pathnameEnvironment = new PathnameEnvironment();
 	  hashEnvironment = new HashEnvironment();
@@ -797,12 +991,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var Environment = __webpack_require__(7);
+	var Environment = __webpack_require__(9);
 	var emptyFunction = function emptyFunction() {};
 	
 	/**
@@ -838,12 +1032,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DummyEnvironment;
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var batchedUpdates = __webpack_require__(8).batchedUpdates;
+	var batchedUpdates = __webpack_require__(10).batchedUpdates;
 	
 	/**
 	 * Base abstract class for a routing environment.
@@ -961,7 +1155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Environment;
 
 /***/ },
-/* 8 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -977,16 +1171,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(10);
+	var _assign = __webpack_require__(12);
 	
-	var CallbackQueue = __webpack_require__(11);
-	var PooledClass = __webpack_require__(12);
-	var ReactFeatureFlags = __webpack_require__(14);
-	var ReactInstrumentation = __webpack_require__(15);
-	var ReactReconciler = __webpack_require__(25);
-	var Transaction = __webpack_require__(28);
+	var CallbackQueue = __webpack_require__(13);
+	var PooledClass = __webpack_require__(14);
+	var ReactFeatureFlags = __webpack_require__(16);
+	var ReactInstrumentation = __webpack_require__(17);
+	var ReactReconciler = __webpack_require__(27);
+	var Transaction = __webpack_require__(30);
 	
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(15);
 	
 	var dirtyComponents = [];
 	var updateBatchNumber = 0;
@@ -1223,10 +1417,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	module.exports = ReactUpdates;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -1331,7 +1525,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1420,7 +1614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1436,11 +1630,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(10);
+	var _assign = __webpack_require__(12);
 	
-	var PooledClass = __webpack_require__(12);
+	var PooledClass = __webpack_require__(14);
 	
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(15);
 	
 	/**
 	 * A specialized pseudo-event module to help keep track of components waiting to
@@ -1528,10 +1722,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	PooledClass.addPoolingTo(CallbackQueue);
 	
 	module.exports = CallbackQueue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1547,7 +1741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(15);
 	
 	/**
 	 * Static poolers. Several custom versions for each potential number of
@@ -1653,10 +1847,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	module.exports = PooledClass;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1708,10 +1902,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports) {
 
 	/**
@@ -1737,7 +1931,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactFeatureFlags;
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1753,12 +1947,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var ReactDebugTool = __webpack_require__(16);
+	var ReactDebugTool = __webpack_require__(18);
 	
 	module.exports = { debugTool: ReactDebugTool };
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1774,10 +1968,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(17);
+	var ExecutionEnvironment = __webpack_require__(19);
 	
-	var performanceNow = __webpack_require__(18);
-	var warning = __webpack_require__(20);
+	var performanceNow = __webpack_require__(20);
+	var warning = __webpack_require__(22);
 	
 	var eventHandlers = [];
 	var handlerDoesThrowForEvent = {};
@@ -1998,9 +2192,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactInvalidSetStateWarningDevTool = __webpack_require__(22);
-	  var ReactNativeOperationHistoryDevtool = __webpack_require__(23);
-	  var ReactComponentTreeDevtool = __webpack_require__(24);
+	  var ReactInvalidSetStateWarningDevTool = __webpack_require__(24);
+	  var ReactNativeOperationHistoryDevtool = __webpack_require__(25);
+	  var ReactComponentTreeDevtool = __webpack_require__(26);
 	  ReactDebugTool.addDevtool(ReactInvalidSetStateWarningDevTool);
 	  ReactDebugTool.addDevtool(ReactComponentTreeDevtool);
 	  ReactDebugTool.addDevtool(ReactNativeOperationHistoryDevtool);
@@ -2011,10 +2205,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	module.exports = ReactDebugTool;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/**
@@ -2054,7 +2248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExecutionEnvironment;
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2070,7 +2264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 	
-	var performance = __webpack_require__(19);
+	var performance = __webpack_require__(21);
 	
 	var performanceNow;
 	
@@ -2092,7 +2286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = performanceNow;
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2108,7 +2302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(17);
+	var ExecutionEnvironment = __webpack_require__(19);
 	
 	var performance;
 	
@@ -2119,7 +2313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = performance || {};
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2134,7 +2328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var emptyFunction = __webpack_require__(21);
+	var emptyFunction = __webpack_require__(23);
 	
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -2178,10 +2372,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	module.exports = warning;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2224,7 +2418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = emptyFunction;
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2240,7 +2434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var warning = __webpack_require__(20);
+	var warning = __webpack_require__(22);
 	
 	if (process.env.NODE_ENV !== 'production') {
 	  var processingChildContext = false;
@@ -2263,10 +2457,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	module.exports = ReactInvalidSetStateWarningDevTool;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports) {
 
 	/**
@@ -2308,7 +2502,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactNativeOperationHistoryDevtool;
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2324,7 +2518,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(15);
 	
 	var tree = {};
 	var rootIDs = [];
@@ -2456,10 +2650,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	module.exports = ReactComponentTreeDevtool;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2475,10 +2669,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var ReactRef = __webpack_require__(26);
-	var ReactInstrumentation = __webpack_require__(15);
+	var ReactRef = __webpack_require__(28);
+	var ReactInstrumentation = __webpack_require__(17);
 	
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(15);
 	
 	/**
 	 * Helper to call ReactRef.attachRefs with this composite component, split out
@@ -2633,10 +2827,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	module.exports = ReactReconciler;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2652,7 +2846,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var ReactOwner = __webpack_require__(27);
+	var ReactOwner = __webpack_require__(29);
 	
 	var ReactRef = {};
 	
@@ -2719,7 +2913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactRef;
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2735,7 +2929,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(15);
 	
 	/**
 	 * ReactOwners are capable of storing references to owned components.
@@ -2814,10 +3008,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	module.exports = ReactOwner;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2833,7 +3027,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(15);
 	
 	/**
 	 * `Transaction` creates a black box that is able to wrap any method such that
@@ -3051,15 +3245,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	module.exports = Transaction;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var Environment = __webpack_require__(7);
+	var Environment = __webpack_require__(9);
 	
 	/**
 	 * Routing environment which routes by `location.pathname`.
@@ -3116,12 +3310,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PathnameEnvironment;
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var Environment = __webpack_require__(7);
+	var Environment = __webpack_require__(9);
 	
 	/**
 	 * Routing environment which routes by `location.hash`.
@@ -3174,7 +3368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = HashEnvironment;
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3183,21 +3377,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _urlPattern = __webpack_require__(32);
+	var _urlPattern = __webpack_require__(34);
 	
 	var _urlPattern2 = _interopRequireDefault(_urlPattern);
 	
-	var _qs = __webpack_require__(34);
+	var _qs = __webpack_require__(36);
 	
 	var _qs2 = _interopRequireDefault(_qs);
 	
-	var _utils = __webpack_require__(38);
+	var _utils = __webpack_require__(40);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 	
-	var assign = Object.assign || __webpack_require__(42);
+	var assign = Object.assign || __webpack_require__(44);
 	var patternCache = {};
 	
 	/**
@@ -3342,14 +3536,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = matchRoutes;
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Generated by CoffeeScript 1.10.0
 	var slice = [].slice;
 	
 	(function(root, factory) {
-	  if (('function' === "function") && (__webpack_require__(33) != null)) {
+	  if (('function' === "function") && (__webpack_require__(35) != null)) {
 	    return !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  } else if (typeof exports !== "undefined" && exports !== null) {
 	    return module.exports = factory();
@@ -3784,7 +3978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -3792,13 +3986,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Stringify = __webpack_require__(35);
-	var Parse = __webpack_require__(37);
+	var Stringify = __webpack_require__(37);
+	var Parse = __webpack_require__(39);
 	
 	module.exports = {
 	    stringify: Stringify,
@@ -3807,12 +4001,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(36);
+	var Utils = __webpack_require__(38);
 	
 	var arrayPrefixGenerators = {
 	    brackets: function brackets(prefix) {
@@ -3950,7 +4144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4120,12 +4314,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(36);
+	var Utils = __webpack_require__(38);
 	
 	var defaults = {
 	    delimiter: '&',
@@ -4293,7 +4487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4302,7 +4496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _misc = __webpack_require__(39);
+	var _misc = __webpack_require__(41);
 	
 	Object.keys(_misc).forEach(function (key) {
 	  if (key === "default") return;
@@ -4314,7 +4508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	});
 	
-	var _invariant = __webpack_require__(40);
+	var _invariant = __webpack_require__(42);
 	
 	Object.keys(_invariant).forEach(function (key) {
 	  if (key === "default") return;
@@ -4326,7 +4520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	});
 	
-	var _warning = __webpack_require__(41);
+	var _warning = __webpack_require__(43);
 	
 	Object.keys(_warning).forEach(function (key) {
 	  if (key === "default") return;
@@ -4339,7 +4533,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4384,7 +4578,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -4439,10 +4633,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    throw error;
 	  }
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -4495,10 +4689,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	exports.warning = warning;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4587,7 +4781,147 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 43 */
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _get = function get(object, property, receiver) {
+	  if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	    var parent = Object.getPrototypeOf(object);if (parent === null) {
+	      return undefined;
+	    } else {
+	      return get(parent, property, receiver);
+	    }
+	  } else if ("value" in desc) {
+	    return desc.value;
+	  } else {
+	    var getter = desc.get;if (getter === undefined) {
+	      return undefined;
+	    }return getter.call(receiver);
+	  }
+	};
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var assign = Object.assign || __webpack_require__(44);
+	
+	exports.default = function (superclass) {
+	  return function (_superclass) {
+	    _inherits(_class2, _superclass);
+	
+	    function _class2() {
+	      var _Object$getPrototypeO;
+	
+	      var _temp, _this, _ret;
+	
+	      _classCallCheck(this, _class2);
+	
+	      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	        args[_key] = arguments[_key];
+	      }
+	
+	      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class2)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.pages = [], _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+	
+	    _createClass(_class2, [{
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	        this.pages = null;
+	        _get(Object.getPrototypeOf(_class2.prototype), 'componentWillUnmount', this) && _get(Object.getPrototypeOf(_class2.prototype), 'componentWillUnmount', this).call(this);
+	      }
+	    }, {
+	      key: 'getChildProps',
+	      value: function getChildProps() {
+	        var childProps = this.props.childProps || {};
+	        // Merge up from parents, with inner props taking priority.
+	        var parent = this.getParentRouter();
+	        if (parent) {
+	          childProps = assign({}, parent.getChildProps(), childProps);
+	        }
+	        return childProps;
+	      }
+	    }, {
+	      key: 'renderRouteHandler',
+	      value: function renderRouteHandler(props) {
+	        if (!this.state.match.route) {
+	          throw new Error("react-routee: No route matched! Did you define a NotFound route?");
+	        }
+	        var stateful = this.props.stateful;
+	        var _state = this.state;
+	        var handler = _state.handler;
+	        var matchProps = _state.matchProps;
+	        var match = _state.match;
+	        var route = match.route;
+	
+	        var page = stateful && this.pages.find(function (page) {
+	          return page.props._path === route.props.path;
+	        });
+	
+	        if (!page) {
+	          props = assign({ ref: route.ref, _path: route.props.path }, this.getChildProps(), props, matchProps);
+	          if (_react2.default.isValidElement(handler)) {
+	            // Be sure to keep the props that were already set on the handler.
+	            // Otherwise, a handler like <div className="foo">bar</div> would have its className lost.
+	            page = _react2.default.cloneElement(handler, assign(props, handler.props));
+	          } else {
+	            page = _react2.default.createElement(handler, props);
+	          }
+	          if (stateful) {
+	            this.pages.push(page);
+	          }
+	        }
+	
+	        return page;
+	      }
+	    }]);
+	
+	    return _class2;
+	  }(superclass);
+	};
+
+/***/ },
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4599,7 +4933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 44 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4625,9 +4959,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Navigatable2 = __webpack_require__(45);
+	var _mixwith = __webpack_require__(3);
 	
-	var _Navigatable3 = _interopRequireDefault(_Navigatable2);
+	var _NavigatableMixin = __webpack_require__(48);
+	
+	var _NavigatableMixin2 = _interopRequireDefault(_NavigatableMixin);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -4651,7 +4987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
-	var assign = Object.assign || __webpack_require__(42);
+	var assign = Object.assign || __webpack_require__(44);
 	
 	var ROUTE_PROPS_TYPES = {
 	  handler: _react.PropTypes.oneOfType([
@@ -4719,8 +5055,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  to: _react.PropTypes.string.isRequired
 	});
 	Redirect.defaultProps = {
-	  handler: function (_Navigatable) {
-	    _inherits(Redirector, _Navigatable);
+	  handler: function (_mix$with) {
+	    _inherits(Redirector, _mix$with);
 	
 	    function Redirector() {
 	      _classCallCheck(this, Redirector);
@@ -4743,7 +5079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }]);
 	
 	    return Redirector;
-	  }(_Navigatable3.default)
+	  }((0, _mixwith.mix)(_react.Component).with(_NavigatableMixin2.default))
 	};
 	
 	var IndexRedirect = function (_Redirect) {
@@ -4790,7 +5126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.NotFound = NotFound;
 
 /***/ },
-/* 45 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4815,7 +5151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _environment = __webpack_require__(5);
+	var _environment = __webpack_require__(7);
 	
 	var _environment2 = _interopRequireDefault(_environment);
 	
@@ -4848,51 +5184,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * navigate to a different route using `navigate(path, navigation, cb)` method.
 	 */
 	
-	var Navigatable = function (_Component) {
-	  _inherits(Navigatable, _Component);
+	exports.default = function (superclass) {
+	  var _class, _temp;
 	
-	  function Navigatable() {
-	    _classCallCheck(this, Navigatable);
+	  return _temp = _class = function (_superclass) {
+	    _inherits(_class, _superclass);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Navigatable).apply(this, arguments));
-	  }
+	    function _class() {
+	      _classCallCheck(this, _class);
 	
-	  _createClass(Navigatable, [{
-	    key: '_getNavigable',
-	
-	    /**
-	     * @private
-	     */
-	    value: function _getNavigable() {
-	      return this.context.router || _environment2.default.defaultEnvironment;
+	      return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
 	    }
-	  }, {
-	    key: 'getPath',
-	    value: function getPath() {
-	      return this._getNavigable().getPath();
-	    }
-	  }, {
-	    key: 'navigate',
-	    value: function navigate(path, navigation, cb) {
-	      return this._getNavigable().navigate(path, navigation, cb);
-	    }
-	  }, {
-	    key: 'makeHref',
-	    value: function makeHref(path) {
-	      return this._getNavigable().makeHref(path);
-	    }
-	  }]);
 	
-	  return Navigatable;
-	}(_react.Component);
+	    _createClass(_class, [{
+	      key: '_getNavigable',
 	
-	Navigatable.contextTypes = {
-	  router: _react.PropTypes.any
+	      /**
+	       * @private
+	       */
+	      value: function _getNavigable() {
+	        return this.context.router || _environment2.default.defaultEnvironment;
+	      }
+	    }, {
+	      key: 'getPath',
+	      value: function getPath() {
+	        return this._getNavigable().getPath();
+	      }
+	    }, {
+	      key: 'navigate',
+	      value: function navigate(path, navigation, cb) {
+	        return this._getNavigable().navigate(path, navigation, cb);
+	      }
+	    }, {
+	      key: 'makeHref',
+	      value: function makeHref(path) {
+	        return this._getNavigable().makeHref(path);
+	      }
+	    }]);
+	
+	    return _class;
+	  }(superclass), _class.contextTypes = {
+	    router: _react.PropTypes.any
+	  }, _temp;
 	};
-	exports.default = Navigatable;
 
 /***/ },
-/* 46 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4917,13 +5254,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _environment = __webpack_require__(5);
+	var _mixwith = __webpack_require__(3);
+	
+	var _environment = __webpack_require__(7);
 	
 	var _environment2 = _interopRequireDefault(_environment);
 	
-	var _Navigatable2 = __webpack_require__(45);
+	var _NavigatableMixin = __webpack_require__(48);
 	
-	var _Navigatable3 = _interopRequireDefault(_Navigatable2);
+	var _NavigatableMixin2 = _interopRequireDefault(_NavigatableMixin);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -4947,7 +5286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
-	var assign = Object.assign || __webpack_require__(42);
+	var assign = Object.assign || __webpack_require__(44);
 	
 	/**
 	 * Link.
@@ -4957,8 +5296,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * this.props.href).
 	 */
 	
-	var Link = function (_Navigatable) {
-	  _inherits(Link, _Navigatable);
+	var Link = function (_mix$with) {
+	  _inherits(Link, _mix$with);
 	
 	  function Link() {
 	    var _Object$getPrototypeO;
@@ -5035,7 +5374,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }]);
 	
 	  return Link;
-	}(_Navigatable3.default);
+	}((0, _mixwith.mix)(_react.Component).with(_NavigatableMixin2.default));
 	
 	Link.displayName = 'Link';
 	Link.propTypes = {
@@ -5046,7 +5385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Link;
 
 /***/ },
-/* 47 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5071,15 +5410,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _core = __webpack_require__(48);
+	var _core = __webpack_require__(51);
 	
 	var _core2 = _interopRequireDefault(_core);
 	
-	var _environment = __webpack_require__(5);
+	var _environment = __webpack_require__(7);
 	
 	var _environment2 = _interopRequireDefault(_environment);
 	
-	var _HashEnvironment = __webpack_require__(30);
+	var _HashEnvironment = __webpack_require__(32);
 	
 	var _HashEnvironment2 = _interopRequireDefault(_HashEnvironment);
 	
@@ -5105,7 +5444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
-	var assign = Object.assign || __webpack_require__(42);
+	var assign = Object.assign || __webpack_require__(44);
 	
 	/**
 	 * A container component which captures <a> clicks and, if there's a matching
@@ -5236,7 +5575,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = CaptureClicks;
 
 /***/ },
-/* 48 */
+/* 51 */
 /***/ function(module, exports) {
 
 	(function() {
