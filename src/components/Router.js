@@ -11,6 +11,7 @@ import RouterRenderingMixin from '../mixins/RouterRenderingMixin';
 const assign = Object.assign || require('object-assign');
 
 let useDefaultStyles = true;
+let defaultStylesImported;
 
 export default class Router extends mix(Component).with(RouterMixin, RouterRenderingMixin) {
   static defaultProps = {
@@ -23,8 +24,9 @@ export default class Router extends mix(Component).with(RouterMixin, RouterRende
 
   componentWillMount() {
     super.componentWillMount && super.componentWillMount();
-    if (useDefaultStyles) {
+    if (useDefaultStyles && !defaultStylesImported) {
       jss(require('../helpers/styles.js')); // eslint-disable-line global-require
+      defaultStylesImported = true;
     }
   }
 
@@ -45,8 +47,8 @@ export default class Router extends mix(Component).with(RouterMixin, RouterRende
     // which are swapped out by the route handler.
     var props = assign({}, this.props, {
       className: cx(
-        'Router',
-        'router',
+        'RouteeRouter',
+        'routee-router',
         this.props.className
       )
     });
@@ -59,7 +61,7 @@ export default class Router extends mix(Component).with(RouterMixin, RouterRende
       return (
         <div key={index}
              className={cx(
-               'route',
+               'routee-route',
                current.props.className,
                {
                  'active': active

@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  '.router .route:not(.active)': {
+  '.routee-route:not(.active)': {
     display: 'none'
   }
 };
