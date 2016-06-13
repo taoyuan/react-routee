@@ -5,33 +5,34 @@
  * It specifies how routers read its state from DOM and synchronise it back.
  */
 
-var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-var DummyEnvironment = require('./DummyEnvironment');
-var Environment = require('./Environment');
+const canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+const DummyEnvironment = require('./DummyEnvironment');
+const Environment = require('./Environment');
 
 /**
  * Mixin for routes to keep attached to an environment.
  *
  * This mixin assumes the environment is passed via props.
  */
-var Mixin = {
-
-  componentWillMount: function () {
+const Mixin = (superclass) => class extends superclass {
+  componentWillMount() {
+    super.componentWillMount && super.componentWillMount();
     this.getEnvironment().register(this);
-  },
+  }
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     this.getEnvironment().unregister(this);
+    super.componentWillUnmount && super.componentWillUnmount();
   }
 };
 
-var PathnameEnvironment;
-var HashEnvironment;
+let PathnameEnvironment;
+let HashEnvironment;
 
-var pathnameEnvironment;
-var hashEnvironment;
-var defaultEnvironment;
-var dummyEnvironment;
+let pathnameEnvironment;
+let hashEnvironment;
+let defaultEnvironment;
+let dummyEnvironment;
 
 if (canUseDOM) {
 

@@ -1,6 +1,6 @@
 "use strict";
 
-import React, {Component, PropTypes}  from 'react';
+import React, {PropTypes}  from 'react';
 import Environment from '../environment';
 
 /**
@@ -9,7 +9,7 @@ import Environment from '../environment';
  * A component which operates in context of a router and can
  * navigate to a different route using `navigate(path, navigation, cb)` method.
  */
-export default class Navigatable extends Component {
+export default (superclass) => class extends superclass {
 
   static contextTypes = {
     router: PropTypes.any

@@ -1,9 +1,9 @@
 "use strict";
 
-
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
+import {mix} from 'mixwith';
 import Environment from '../environment'
-import Navigatable from './Navigatable';
+import NavigatableMixin from '../mixins/NavigatableMixin';
 
 const assign = Object.assign || require('object-assign');
 
@@ -14,7 +14,7 @@ const assign = Object.assign || require('object-assign');
  * onClick event by transitioning onto different route (defined by
  * this.props.href).
  */
-export default class Link extends Navigatable {
+export default class Link extends mix(Component).with(NavigatableMixin) {
   static displayName = 'Link';
 
   static propTypes = {

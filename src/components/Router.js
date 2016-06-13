@@ -1,6 +1,7 @@
 "use strict";
 
 import React, {Component, PropTypes} from 'react';
+import {mix} from 'mixwith';
 import cx from 'classnames';
 import jss from 'js-stylesheet';
 
@@ -12,7 +13,7 @@ const assign = Object.assign || require('object-assign');
 
 let useDefaultStyles = true;
 
-export default class Router extends Component {
+export default class Router extends mix(Component).with(Environment.Mixin) {
   static displayName = 'Router';
 
   static propTypes = {
@@ -52,11 +53,11 @@ export default class Router extends Component {
   pages = [];
 
   componentWillMount() {
+    super.componentWillMount && super.componentWillMount();
     if (useDefaultStyles) {
       jss(require('../helpers/styles.js')); // eslint-disable-line global-require
     }
     this.pages = [];
-    this.getEnvironment().register(this);
 
     this.delegateSetRoutingState(this.getRouterState(this.props));
   }
@@ -66,17 +67,9 @@ export default class Router extends Component {
     this.delegateSetRoutingState(nextState);
   }
 
-  // componentDidMount() {
-  //   if (useDefaultStyles) {
-  //     jss(require('../helpers/styles.js')); // eslint-disable-line global-require
-  //   }
-  //   this.pages = [];
-  //   this.getEnvironment().register(this);
-  // }
-
   componentWillUnmount() {
-    this.getEnvironment().unregister(this);
     this.pages = null;
+    super.componentWillUnmount && super.componentWillUnmount();
   }
 
   getRoutes(props) {
@@ -263,61 +256,6 @@ export default class Router extends Component {
     return childProps;
   }
 
-  // renderRouteHandler(props) {
-  //   if (!this.state.match.route) {
-  //     throw new Error("react-routee: No route matched! Did you define a NotFound route?");
-  //   }
-  //   const handler = this.state.handler;
-  //   const matchProps = this.state.matchProps;
-  //   const {route} = this.state.match;
-  //   const path = route.props.path;
-  //   let page;
-  //
-  //   props = assign({ref: route.ref, active: true}, this.getChildProps(), props, matchProps);
-  //
-  //   if (this.props.stateful && this.pages[path]) {
-  //     page = this.pages[path];
-  //   }
-  //
-  //   if (page) {
-  //     return this.pages[path] = React.cloneElement(page, assign(props, handler.props));
-  //   }
-  //
-  //   props.key = props.key || uniqueId();
-  //
-  //   if (React.isValidElement(handler)) {
-  //     // Be sure to keep the props that were already set on the handler.
-  //     // Otherwise, a handler like <div className="foo">bar</div> would have its className lost.
-  //     page = React.cloneElement(handler, assign(props, handler.props));
-  //   } else {
-  //     page = React.createElement(handler, props);
-  //   }
-  //   if (this.props.stateful) {
-  //     this.pages[path] = page;
-  //   }
-  //   return page;
-  //
-  // }
-
-  // render() {
-  //   const handler = this.renderRouteHandler(this.props.childProps);
-  //
-  //   if (!this.props.component) {
-  //     return handler;
-  //   }
-  //
-  //   // Pass all props except this component to the Router (containing div/body) and the children,
-  //   // which are swapped out by the route handler.
-  //   var props = assign({key: uniqueId()}, this.props);
-  //   delete props.component;
-  //   delete props.children;
-  //   delete props.childProps;
-  //   return React.createElement(this.props.component, props, handler);
-  //
-  //
-  // }
-
-
   resolve(props) {
     if (!this.state.match.route) {
       throw new Error("react-routee: No route matched! Did you define a NotFound route?");
@@ -367,10 +305,10 @@ export default class Router extends Component {
     delete props.children;
     delete props.childProps;
 
-    const children = pages.map(current => {
+    const children = pages.map((current, index) => {
       const active = (current.props._path === page.props._path);
       return (
-        <div key={current.props._path}
+        <div key={index}
              className={cx(
                'route',
                current.props.className,
