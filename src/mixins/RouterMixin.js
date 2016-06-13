@@ -1,16 +1,16 @@
 "use strict";
 
 import React, {PropTypes}  from 'react';
-import {mix} from 'mixwith';
+import mixin from 'react-mixin';
 import Environment from '../environment';
 import matchRoutes from '../helpers/matchRoutes';
 import {join, isString, invariant} from '../utils';
 
 const assign = Object.assign || require('object-assign');
 
-export default (superclass) => class extends mix(superclass).with(Environment.Mixin) {
+const RouterMixin = {
 
-  static propTypes = {
+  propTypes: {
     path: PropTypes.string,
     contextual: PropTypes.bool,
     stateful: PropTypes.bool,
@@ -20,36 +20,35 @@ export default (superclass) => class extends mix(superclass).with(Environment.Mi
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.object
     ])
-  };
+  },
 
-  static contextTypes = {
+  contextTypes: {
     router: PropTypes.any
-  };
+  },
 
-  static childContextTypes = {
+  childContextTypes: {
     router: PropTypes.any
-  };
+  },
 
 
   getChildContext() {
     return {
       router: this
     };
-  }
+  },
 
   componentWillMount() {
-    super.componentWillMount && super.componentWillMount();
     this.delegateSetRoutingState(this.getRouterState(this.props));
-  }
+  },
 
   componentWillReceiveProps(nextProps) {
     var nextState = this.getRouterState(nextProps);
     this.delegateSetRoutingState(nextState);
-  }
+  },
 
   getRoutes(props) {
     return props.children;
-  }
+  },
 
   getRouterState(props) {
     var path;
@@ -98,7 +97,7 @@ export default (superclass) => class extends mix(superclass).with(Environment.Mi
       navigation: {},
       path: path
     };
-  }
+  },
 
   getEnvironment() {
     if (this.props.environment) {
@@ -114,7 +113,7 @@ export default (superclass) => class extends mix(superclass).with(Environment.Mi
       return this.context.router.getEnvironment();
     }
     return Environment.defaultEnvironment;
-  }
+  },
 
   /**
    * Return parent router or undefined.
@@ -128,14 +127,14 @@ export default (superclass) => class extends mix(superclass).with(Environment.Mi
         return current;
       }
     }
-  }
+  },
 
   /**
    * Return current match.
    */
   getMatch() {
     return this.state.match;
-  }
+  },
 
   getURLPatternOptions() {
     var parent = this.getParentRouter();
@@ -145,14 +144,14 @@ export default (superclass) => class extends mix(superclass).with(Environment.Mi
       return assign({}, this.props.urlPatternOptions, parentOptions);
     }
     return this.props.urlPatternOptions;
-  }
+  },
 
   /**
    * Make href scoped for the current router.
    */
   makeHref(href) {
     return join(this.state.prefix, href);
-  }
+  },
 
   /**
    * Navigate to a path
@@ -164,7 +163,7 @@ export default (superclass) => class extends mix(superclass).with(Environment.Mi
   navigate(path, navigation, cb) {
     path = join(this.state.prefix, path);
     this.getEnvironment().setPath(path, navigation, cb);
-  }
+  },
 
   /**
    * Set new path.
@@ -197,14 +196,14 @@ export default (superclass) => class extends mix(superclass).with(Environment.Mi
       }
       cb();
     });
-  }
+  },
 
   /**
    * Return the current path
    */
   getPath() {
     return this.state.match.path;
-  }
+  },
 
   /**
    * Try to delegate state update to a setRoutingState method (might be provided
@@ -220,4 +219,8 @@ export default (superclass) => class extends mix(superclass).with(Environment.Mi
       this.setState(state, cb);
     }
   }
-}
+};
+
+mixin(RouterMixin, Environment.Mixin);
+
+export default RouterMixin;

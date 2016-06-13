@@ -69,9 +69,9 @@
   "dependencies": {
     "classnames": "^2.2",
     "js-stylesheet": "^0.0.1",
-    "mixwith": "^0.1.1",
     "object-assign": "^4.1.0",
     "qs": "^6.2.0",
+    "react-mixin": "^3.0.5",
     "url-pattern": "^1.0.1",
     "urllite": "^0.5.0"
   },

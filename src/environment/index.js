@@ -14,15 +14,13 @@ const Environment = require('./Environment');
  *
  * This mixin assumes the environment is passed via props.
  */
-const Mixin = (superclass) => class extends superclass {
+const Mixin = {
   componentWillMount() {
-    super.componentWillMount && super.componentWillMount();
     this.getEnvironment().register(this);
-  }
+  },
 
   componentWillUnmount() {
     this.getEnvironment().unregister(this);
-    super.componentWillUnmount && super.componentWillUnmount();
   }
 };
 

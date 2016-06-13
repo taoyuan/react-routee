@@ -1,7 +1,7 @@
 "use strict";
 
-import React, {Component, PropTypes} from 'react';
-import {mix} from 'mixwith';
+import React, {Component} from 'react';
+import mixin from 'react-mixin';
 import cx from 'classnames';
 import jss from 'js-stylesheet';
 
@@ -13,7 +13,7 @@ const assign = Object.assign || require('object-assign');
 let useDefaultStyles = true;
 let defaultStylesImported;
 
-export default class Router extends mix(Component).with(RouterMixin, RouterRenderingMixin) {
+export default class Router extends Component {
   static defaultProps = {
     component: 'div'
   };
@@ -23,15 +23,10 @@ export default class Router extends mix(Component).with(RouterMixin, RouterRende
   }
 
   componentWillMount() {
-    super.componentWillMount && super.componentWillMount();
     if (useDefaultStyles && !defaultStylesImported) {
       jss(require('../helpers/styles.js')); // eslint-disable-line global-require
       defaultStylesImported = true;
     }
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount && super.componentWillUnmount();
   }
 
   render() {
@@ -56,10 +51,10 @@ export default class Router extends mix(Component).with(RouterMixin, RouterRende
     delete props.children;
     delete props.childProps;
 
-    const children = pages.map((current, index) => {
+    const children = pages.map((current) => {
       const active = (current.props._path === page.props._path);
       return (
-        <div key={index}
+        <div key={current.props._path}
              className={cx(
                'routee-route',
                current.props.className,
@@ -75,6 +70,9 @@ export default class Router extends mix(Component).with(RouterMixin, RouterRende
     return React.createElement(this.props.component, props, children);
   }
 }
+
+mixin.onClass(Router, RouterMixin);
+mixin.onClass(Router, RouterRenderingMixin);
 
 class Pager extends Router {
   static defaultProps = assign({}, Router.defaultProps, {

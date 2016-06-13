@@ -1,7 +1,7 @@
 "use strict";
 
 import React, {Component, PropTypes} from 'react';
-import {mix} from 'mixwith';
+import mixin from 'react-mixin';
 import NavigatableMixin from '../mixins/NavigatableMixin';
 const assign = Object.assign || require('object-assign');
 
@@ -46,7 +46,7 @@ class Redirect extends Route {
   });
 
   static defaultProps = {
-    handler: class Redirector extends mix(Component).with(NavigatableMixin) {
+    handler: mixin.onClass(class Redirector extends Component {
 
       componentDidMount() {
         this.context.router.navigate(this.props.to, (err) => {
@@ -57,7 +57,7 @@ class Redirect extends Route {
       render() {
         return <div/>;
       }
-    }
+    }, NavigatableMixin)
   };
 
 }

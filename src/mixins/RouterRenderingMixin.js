@@ -3,14 +3,17 @@
 import React  from 'react';
 const assign = Object.assign || require('object-assign');
 
-export default (superclass) => class extends superclass {
+const RouterRenderingMixin = {
 
-  pages = [];
+  pages: undefined,
+
+  componentWillMount() {
+    this.pages = [];
+  },
 
   componentWillUnmount() {
     this.pages = null;
-    super.componentWillUnmount && super.componentWillUnmount();
-  }
+  },
 
   getChildProps() {
     var childProps = this.props.childProps || {};
@@ -20,7 +23,7 @@ export default (superclass) => class extends superclass {
       childProps = assign({}, parent.getChildProps(), childProps);
     }
     return childProps;
-  }
+  },
 
   renderRouteHandler(props) {
     if (!this.state.match.route) {
@@ -48,4 +51,6 @@ export default (superclass) => class extends superclass {
 
     return page;
   }
-}
+};
+
+export default RouterRenderingMixin;
