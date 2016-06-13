@@ -75,7 +75,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 	
-	var _Route = __webpack_require__(42);
+	var _Route = __webpack_require__(44);
 	
 	Object.defineProperty(exports, 'Route', {
 	  enumerable: true,
@@ -108,7 +108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 	
-	var _Link = __webpack_require__(44);
+	var _Link = __webpack_require__(46);
 	
 	Object.defineProperty(exports, 'Link', {
 	  enumerable: true,
@@ -117,7 +117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 	
-	var _CaptureClicks = __webpack_require__(45);
+	var _CaptureClicks = __webpack_require__(47);
 	
 	Object.defineProperty(exports, 'CaptureClicks', {
 	  enumerable: true,
@@ -169,13 +169,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _environment2 = _interopRequireDefault(_environment);
 	
-	var _invariant = __webpack_require__(31);
-	
-	var _invariant2 = _interopRequireDefault(_invariant);
-	
-	var _matchRoutes = __webpack_require__(32);
+	var _matchRoutes = __webpack_require__(31);
 	
 	var _matchRoutes2 = _interopRequireDefault(_matchRoutes);
+	
+	var _utils = __webpack_require__(38);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -199,7 +197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
-	var assign = Object.assign || __webpack_require__(36);
+	var assign = Object.assign || __webpack_require__(42);
 	
 	var useDefaultStyles = true;
 	
@@ -231,7 +229,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      if (useDefaultStyles) {
-	        (0, _jsStylesheet2.default)(__webpack_require__(41)); // eslint-disable-line global-require
+	        (0, _jsStylesheet2.default)(__webpack_require__(43)); // eslint-disable-line global-require
 	      }
 	      this.pages = [];
 	      this.getEnvironment().register(this);
@@ -277,7 +275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // we as well want the newest data so we use the pending match.
 	        var parentMatch = parent._pendingMatch || parent.getMatch();
 	
-	        (0, _invariant2.default)(props.path || isString(parentMatch.unmatchedPath) || parentMatch.matchedPath === parentMatch.path, "contextual router has nothing to match on: %s", parentMatch.unmatchedPath);
+	        (0, _utils.invariant)(props.path || (0, _utils.isString)(parentMatch.unmatchedPath) || parentMatch.matchedPath === parentMatch.path, "contextual router has nothing to match on: %s", parentMatch.unmatchedPath);
 	
 	        path = props.path || parentMatch.unmatchedPath || '/';
 	        prefix = parent.state.prefix + parentMatch.matchedPath;
@@ -285,7 +283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        path = props.path || this.getEnvironment().getPath();
 	
-	        (0, _invariant2.default)(isString(path), "router operate in environment which cannot provide path, " + "pass it a path prop; or probably you want to make it contextual");
+	        (0, _utils.invariant)((0, _utils.isString)(path), "router operate in environment which cannot provide path, " + "pass it a path prop; or probably you want to make it contextual");
 	
 	        prefix = '';
 	      }
@@ -368,7 +366,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'makeHref',
 	    value: function makeHref(href) {
-	      return join(this.state.prefix, href);
+	      return (0, _utils.join)(this.state.prefix, href);
 	    }
 	
 	    /**
@@ -382,7 +380,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'navigate',
 	    value: function navigate(path, navigation, cb) {
-	      path = join(this.state.prefix, path);
+	      path = (0, _utils.join)(this.state.prefix, path);
 	      this.getEnvironment().setPath(path, navigation, cb);
 	    }
 	
@@ -607,14 +605,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  router: _react.PropTypes.any
 	};
 	exports.default = Router;
-	
-	function join(a, b) {
-	  return (a + b).replace(/\/\//g, '/');
-	}
-	
-	function isString(o) {
-	  return Object.prototype.toString.call(o) === '[object String]';
-	}
 	
 	var Pager = function (_Router) {
 	  _inherits(Pager, _Router);
@@ -3187,70 +3177,27 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule invariant
-	 */
-	
 	"use strict";
 	
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var __ENV__ = process.env.NODE_ENV; // env lookup is slow in Node
-	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
-	  if (__ENV__ !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
+	var _urlPattern = __webpack_require__(32);
 	
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	    }
+	var _urlPattern2 = _interopRequireDefault(_urlPattern);
 	
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
+	var _qs = __webpack_require__(34);
 	
-	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
+	var _qs2 = _interopRequireDefault(_qs);
 	
-	var URLPattern = __webpack_require__(33);
-	var invariant = __webpack_require__(31);
-	var warning = __webpack_require__(35);
-	var assign = Object.assign || __webpack_require__(36);
-	var qs = __webpack_require__(37);
+	var _utils = __webpack_require__(38);
 	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	var assign = Object.assign || __webpack_require__(42);
 	var patternCache = {};
 	
 	/**
@@ -3266,12 +3213,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (!Array.isArray(routes)) {
 	    routes = [routes];
 	  }
+	  routes = (0, _utils.flatten)(routes);
 	
 	  var parts = path.split('?');
 	  var pathToMatch = parts[0];
 	  var queryString = parts[1];
 	  if (queryString) {
-	    queryObj = qs.parse(queryString);
+	    queryObj = _qs2.default.parse(queryString);
 	  }
 	
 	  routes.forEach(function (current) {
@@ -3280,7 +3228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!current) return;
 	    var props = current.props || current;
 	
-	    invariant((props.handler !== undefined || props.redirect !== undefined) && props.path !== undefined, "Router should contain either Route or NotFound components as routes");
+	    (0, _utils.invariant)((props.handler !== undefined || props.redirect !== undefined) && props.path !== undefined, "Router should contain either Route or NotFound components as routes");
 	
 	    if (props.path) {
 	      // Allow passing compiler options to url-pattern, see
@@ -3298,14 +3246,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // FIXME remove this block in next minor version
 	      if (props.matchKeys) {
 	        urlPatternOptions = props.matchKeys;
-	        warning(false, '`matchKeys` is deprecated; please use the prop `urlPatternOptions` instead. See the CHANGELOG for details.');
+	        (0, _utils.warning)(false, '`matchKeys` is deprecated; please use the prop `urlPatternOptions` instead. See the CHANGELOG for details.');
 	      }
 	
 	      var cacheKey = props.path + (urlPatternOptions ? JSON.stringify(urlPatternOptions) : '');
 	
 	      var pattern = patternCache[cacheKey];
 	      if (!pattern) {
-	        pattern = patternCache[cacheKey] = new URLPattern(props.path, urlPatternOptions);
+	        pattern = patternCache[cacheKey] = new _urlPattern2.default(props.path, urlPatternOptions);
 	      }
 	
 	      if (!page) {
@@ -3391,17 +3339,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return this.route.props && this.route.props.handler;
 	};
 	
-	module.exports = matchRoutes;
+	exports.default = matchRoutes;
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Generated by CoffeeScript 1.10.0
 	var slice = [].slice;
 	
 	(function(root, factory) {
-	  if (('function' === "function") && (__webpack_require__(34) != null)) {
+	  if (('function' === "function") && (__webpack_require__(33) != null)) {
 	    return !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  } else if (typeof exports !== "undefined" && exports !== null) {
 	    return module.exports = factory();
@@ -3836,7 +3784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -3844,155 +3792,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014 Facebook, Inc.
-	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 * http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 *
-	 * @providesModule warning
-	 */
-	
-	"use strict";
-	
-	/**
-	 * Similar to invariant but only logs a warning if the condition is not met.
-	 * This can be used to log issues in development environments in critical
-	 * paths. Removing the logging code for production environments will keep the
-	 * same logic and follow the same code paths.
-	 */
-	
-	var warning = function warning() {};
-	
-	if ("production" !== process.env.NODE_ENV) {
-	  warning = function warning(condition, format) {
-	    var args = Array.prototype.slice.call(arguments, 2);
-	    if (format === undefined) {
-	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-	    }
-	
-	    if (!condition) {
-	      var argIndex = 0;
-	      /*eslint no-console:0*/
-	      console.warn('Warning: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	    }
-	  };
-	}
-	
-	module.exports = warning;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
-
-/***/ },
-/* 36 */
-/***/ function(module, exports) {
-
-	'use strict';
-	/* eslint-disable no-unused-vars */
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-	
-	function toObject(val) {
-		if (val === null || val === undefined) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-	
-		return Object(val);
-	}
-	
-	function shouldUseNative() {
-		try {
-			if (!Object.assign) {
-				return false;
-			}
-	
-			// Detect buggy property enumeration order in older V8 versions.
-	
-			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line
-			test1[5] = 'de';
-			if (Object.getOwnPropertyNames(test1)[0] === '5') {
-				return false;
-			}
-	
-			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-			var test2 = {};
-			for (var i = 0; i < 10; i++) {
-				test2['_' + String.fromCharCode(i)] = i;
-			}
-			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-				return test2[n];
-			});
-			if (order2.join('') !== '0123456789') {
-				return false;
-			}
-	
-			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-			var test3 = {};
-			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-				test3[letter] = letter;
-			});
-			if (Object.keys(Object.assign({}, test3)).join('') !==
-					'abcdefghijklmnopqrst') {
-				return false;
-			}
-	
-			return true;
-		} catch (e) {
-			// We don't expect any of the above to throw, but better to be safe.
-			return false;
-		}
-	}
-	
-	module.exports = shouldUseNative() ? Object.assign : function (target, source) {
-		var from;
-		var to = toObject(target);
-		var symbols;
-	
-		for (var s = 1; s < arguments.length; s++) {
-			from = Object(arguments[s]);
-	
-			for (var key in from) {
-				if (hasOwnProperty.call(from, key)) {
-					to[key] = from[key];
-				}
-			}
-	
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
-				for (var i = 0; i < symbols.length; i++) {
-					if (propIsEnumerable.call(from, symbols[i])) {
-						to[symbols[i]] = from[symbols[i]];
-					}
-				}
-			}
-		}
-	
-		return to;
-	};
-
-
-/***/ },
-/* 37 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Stringify = __webpack_require__(38);
-	var Parse = __webpack_require__(40);
+	var Stringify = __webpack_require__(35);
+	var Parse = __webpack_require__(37);
 	
 	module.exports = {
 	    stringify: Stringify,
@@ -4001,12 +3807,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 38 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(39);
+	var Utils = __webpack_require__(36);
 	
 	var arrayPrefixGenerators = {
 	    brackets: function brackets(prefix) {
@@ -4144,7 +3950,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 39 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4314,12 +4120,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 40 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(39);
+	var Utils = __webpack_require__(36);
 	
 	var defaults = {
 	    delimiter: '&',
@@ -4487,22 +4293,313 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _misc = __webpack_require__(39);
+	
+	Object.keys(_misc).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _misc[key];
+	    }
+	  });
+	});
+	
+	var _invariant = __webpack_require__(40);
+	
+	Object.keys(_invariant).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _invariant[key];
+	    }
+	  });
+	});
+	
+	var _warning = __webpack_require__(41);
+	
+	Object.keys(_warning).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _warning[key];
+	    }
+	  });
+	});
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.join = join;
+	exports.isString = isString;
+	exports.flatten = flatten;
+	function join(a, b) {
+	  return (a + b).replace(/\/\//g, '/');
+	}
+	
+	function isString(o) {
+	  return Object.prototype.toString.call(o) === '[object String]';
+	}
+	
+	function flatten(list, depth) {
+	  depth = typeof depth == 'number' ? depth : Infinity;
+	
+	  if (!depth) {
+	    if (Array.isArray(list)) {
+	      return list.map(function (i) {
+	        return i;
+	      });
+	    }
+	    return list;
+	  }
+	
+	  return _flatten(list, 1);
+	
+	  function _flatten(list, d) {
+	    return list.reduce(function (acc, item) {
+	      if (Array.isArray(item) && d < depth) {
+	        return acc.concat(_flatten(item, d + 1));
+	      } else {
+	        return acc.concat(item);
+	      }
+	    }, []);
+	  }
+	}
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule invariant
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.invariant = invariant;
+	var __ENV__ = process.env.NODE_ENV; // env lookup is slow in Node
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  if (__ENV__ !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+
+/***/ },
 /* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2014 Facebook, Inc.
+	 *
+	 * Licensed under the Apache License, Version 2.0 (the "License");
+	 * you may not use this file except in compliance with the License.
+	 * You may obtain a copy of the License at
+	 *
+	 * http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 * Unless required by applicable law or agreed to in writing, software
+	 * distributed under the License is distributed on an "AS IS" BASIS,
+	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 * See the License for the specific language governing permissions and
+	 * limitations under the License.
+	 *
+	 * @providesModule warning
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Similar to invariant but only logs a warning if the condition is not met.
+	 * This can be used to log issues in development environments in critical
+	 * paths. Removing the logging code for production environments will keep the
+	 * same logic and follow the same code paths.
+	 */
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var warning = function warning() {};
+	
+	if ("production" !== process.env.NODE_ENV) {
+	  exports.warning = warning = function warning(condition, format) {
+	    var args = Array.prototype.slice.call(arguments, 2);
+	    if (format === undefined) {
+	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+	    }
+	
+	    if (!condition) {
+	      var argIndex = 0;
+	      /*eslint no-console:0*/
+	      console.warn('Warning: ' + format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	    }
+	  };
+	}
+	
+	exports.warning = warning;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+
+/***/ },
+/* 42 */
+/***/ function(module, exports) {
+
+	'use strict';
+	/* eslint-disable no-unused-vars */
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+	
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+	
+		return Object(val);
+	}
+	
+	function shouldUseNative() {
+		try {
+			if (!Object.assign) {
+				return false;
+			}
+	
+			// Detect buggy property enumeration order in older V8 versions.
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+			var test1 = new String('abc');  // eslint-disable-line
+			test1[5] = 'de';
+			if (Object.getOwnPropertyNames(test1)[0] === '5') {
+				return false;
+			}
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test2 = {};
+			for (var i = 0; i < 10; i++) {
+				test2['_' + String.fromCharCode(i)] = i;
+			}
+			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+				return test2[n];
+			});
+			if (order2.join('') !== '0123456789') {
+				return false;
+			}
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test3 = {};
+			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+				test3[letter] = letter;
+			});
+			if (Object.keys(Object.assign({}, test3)).join('') !==
+					'abcdefghijklmnopqrst') {
+				return false;
+			}
+	
+			return true;
+		} catch (e) {
+			// We don't expect any of the above to throw, but better to be safe.
+			return false;
+		}
+	}
+	
+	module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+		var from;
+		var to = toObject(target);
+		var symbols;
+	
+		for (var s = 1; s < arguments.length; s++) {
+			from = Object(arguments[s]);
+	
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+	
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
+			}
+		}
+	
+		return to;
+	};
+
+
+/***/ },
+/* 43 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	module.exports = {
-	  '.router .route.active': {
-	    display: 'block'
-	  },
 	  '.router .route:not(.active)': {
 	    display: 'none'
 	  }
 	};
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4528,7 +4625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Navigatable2 = __webpack_require__(43);
+	var _Navigatable2 = __webpack_require__(45);
 	
 	var _Navigatable3 = _interopRequireDefault(_Navigatable2);
 	
@@ -4554,7 +4651,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
-	var assign = Object.assign || __webpack_require__(36);
+	var assign = Object.assign || __webpack_require__(42);
 	
 	var ROUTE_PROPS_TYPES = {
 	  handler: _react.PropTypes.oneOfType([
@@ -4693,7 +4790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.NotFound = NotFound;
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4795,7 +4892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Navigatable;
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4824,7 +4921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _environment2 = _interopRequireDefault(_environment);
 	
-	var _Navigatable2 = __webpack_require__(43);
+	var _Navigatable2 = __webpack_require__(45);
 	
 	var _Navigatable3 = _interopRequireDefault(_Navigatable2);
 	
@@ -4850,7 +4947,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
-	var assign = Object.assign || __webpack_require__(36);
+	var assign = Object.assign || __webpack_require__(42);
 	
 	/**
 	 * Link.
@@ -4949,7 +5046,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Link;
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4974,7 +5071,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _core = __webpack_require__(46);
+	var _core = __webpack_require__(48);
 	
 	var _core2 = _interopRequireDefault(_core);
 	
@@ -5008,7 +5105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
-	var assign = Object.assign || __webpack_require__(36);
+	var assign = Object.assign || __webpack_require__(42);
 	
 	/**
 	 * A container component which captures <a> clicks and, if there's a matching
@@ -5139,7 +5236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = CaptureClicks;
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports) {
 
 	(function() {
